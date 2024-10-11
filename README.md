@@ -10,6 +10,11 @@ Mini project for React 18 to create an expense list
 
 Windows: .\.venv\Scripts\activate
 
-## Run the `react-app` in react-app
+## vite version 5.2.3
+
+created the react app with vite@5.2
+expense-list, React, TypeScript
+
+## Run the react app in `expense-list`
 
 At root, run `npm run dev`
