@@ -6,8 +6,10 @@ import z from "zod";
 const schema = z.object({
   description: z
     .string()
-    .min(3, { message: "Description must e at least 3 characters long" }),
-  amount: z.number().positive({ message: "Amount must be a positve number" }),
+    .min(3, { message: "Description must be at least 3 characters long" }),
+  amount: z
+    .number({ invalid_type_error: "Amount field is required" })
+    .positive({ message: "Amount must be a positive number" }),
   category: z.enum(["", "Groceries", "Utilities", "Entertainment"], {
     errorMap: () => ({ message: "Please select a category" }),
   }),
@@ -38,7 +40,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input {...register("description")} placeholder="Description" />
-        {errors.description && <span>{errors.description.message}</span>}
+        {errors.description && (
+          <span className="error-message">{errors.description.message}</span>
+        )}
       </div>
       <div>
         <input
@@ -47,7 +51,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
           step="0.01"
           placeholder="Amount"
         />
-        {errors.amount && <span>{errors.amount.message}</span>}
+        {errors.amount && (
+          <span className="error-message">{errors.amount.message}</span>
+        )}
       </div>
       <div>
         <select {...register("category")}>
@@ -56,7 +62,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense }) => {
           <option value="Utilities">Utilities</option>
           <option value="Entertainment">Entertainment</option>
         </select>
-        {errors.category && <span>{errors.category.message}</span>}
+        {errors.category && (
+          <span className="error-message">{errors.category.message}</span>
+        )}
       </div>
       <button type="submit">Add Expense</button>
     </form>
