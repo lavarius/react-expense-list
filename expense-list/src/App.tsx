@@ -14,6 +14,7 @@ function App() {
   const visibleExpenses = selectedCategory
     ? expenses.filter((e) => e.category === selectedCategory)
     : expenses;
+
   return (
     <div>
       <div className="mb-3">

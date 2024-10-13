@@ -12,7 +12,7 @@ const ExpenseFilter = ({ onSelectCategory }: Props) => {
     >
       <option value="">All categories</option>
       <option value="Groceries">Groceries</option>
-      <option value="Utilites">Utilities</option>
+      <option value="Utilities">Utilities</option>
       <option value="Entertainment">Entertainment</option>
     </select>
   );
