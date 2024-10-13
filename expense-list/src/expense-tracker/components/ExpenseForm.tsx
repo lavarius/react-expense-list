@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import categories from "../categories";
 
 const schema = z.object({
-  description: z.string().min(3).max(50),
+  description: z
+    .string()
+    .min(3, { message: "Description should be at least 3 characters." })
+    .max(50),
   amount: z.number().min(0.01).max(100_000),
   category: z.enum(categories),
 });
