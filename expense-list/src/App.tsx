@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import ExpenseForm from "./components/ExpenseForm";
+import ExpenseTable from "./components/ExpenseTable";
 
 interface Expense {
   description: string;
@@ -15,6 +16,20 @@ const App: React.FC = () => {
   const addExpense = (expense: Expense) => {
     setExpenses([...expenses, expense]);
   };
+
+  const deleteExpense = (index: number) => {
+    setExpenses(expenses.filter((_, i) => i !== index));
+  };
+
+  const filteredExpenses = useMemo(() => {
+    return filter === "All Categories"
+      ? expenses
+      : expenses.filter((expense) => expense.category === filter);
+  }, [expenses, filter]);
+
+  const total = useMemo(() => {
+    return filteredExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+  }, [filteredExpenses]);
 
   return (
     <div>
@@ -33,6 +48,12 @@ const App: React.FC = () => {
           <option value="Entertainment">Entertainment</option>
         </select>
       </div>
+      <ExpenseTable
+        expenses={expenses}
+        onDeleteExpense={deleteExpense}
+        filter={filter}
+        total={total}
+      />
     </div>
   );
 };
